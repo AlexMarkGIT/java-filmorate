@@ -38,7 +38,7 @@ public class FilmController {
     }
 
     @PutMapping(value = "/films")
-    public Film update (@Valid @RequestBody Film film) {
+    public Film update(@Valid @RequestBody Film film) {
         if (!films.containsKey(film.getId())) {
             throw new ValidationException("Фильма с номером " + film.getId() + " не существует");
         }
