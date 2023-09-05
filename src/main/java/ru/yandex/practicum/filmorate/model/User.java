@@ -31,11 +31,8 @@ public class User {
         this.id = 0;
         this.email = email;
         this.login = login;
-        if (name == null || name.isBlank()) {
-            this.name = login;
-        } else {
-            this.name = name;
-        }
+        if (name == null || name.isBlank()) this.name = login;
+        else this.name = name;
         this.birthday = birthday;
         loginValidation = !login.contains(" ");
     }
