@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/users")
-    public User update (@Valid @RequestBody User user) {
+    public User update(@Valid @RequestBody User user) {
         System.out.println("Юзеры которые есть: " + users);
         System.out.println("Обновляется юзер : " + user);
 
