@@ -7,7 +7,7 @@ import lombok.ToString;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.*;
 
 @Getter
 @Setter
@@ -24,7 +24,8 @@ public class Film {
     @Positive
     private int duration;
     @AssertTrue
-    private boolean dateValidation; // <для ревьюера>: ничего лучше не придумал))
+    private boolean dateValidation;
+    private Set<Integer> likes;
 
     public Film(String name, String description, LocalDate releaseDate, int duration) {
         this.id = 0;
@@ -33,6 +34,15 @@ public class Film {
         this.releaseDate = releaseDate;
         this.duration = duration;
         this.dateValidation = releaseDate.isAfter(LocalDate.of(1895,12,28));
+        this.likes = new HashSet<>();
+    }
+
+    public void addLike(int userId) {
+        likes.add(userId);
+    }
+
+    public void deleteLike(Integer userId) {
+        likes.remove(userId);
     }
 
     @Override
