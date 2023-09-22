@@ -6,6 +6,8 @@ import lombok.ToString;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -25,7 +27,9 @@ public class User {
     @Past
     private LocalDate birthday;
     @AssertTrue
-    private boolean loginValidation; // <для ревьюера>: ничего лучше не придумал))
+    private boolean loginValidation;
+    private List<Integer> friends;
+
 
     public User(String email, String login, String name, LocalDate birthday) {
         this.id = 0;
@@ -35,6 +39,15 @@ public class User {
         else this.name = name;
         this.birthday = birthday;
         loginValidation = !login.contains(" ");
+        this.friends = new ArrayList<>();
+    }
+
+    public void addFriend(Integer friendId) {
+        friends.add(friendId);
+    }
+
+    public void deleteFriend(Integer friendId) {
+        friends.remove(friendId);
     }
 
     @Override

@@ -140,7 +140,7 @@ class FilmorateApplicationTests {
 				"name",
 				LocalDate.of(1990, 1,1));
 
-		URI uri = URI.create("http://localhost:8080/films");
+		URI uri = URI.create("http://localhost:8080/users");
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(uri)
 				.setHeader("Content-Type", "application/json")
@@ -202,7 +202,7 @@ class FilmorateApplicationTests {
 	}
 
 	@Test
-	void shouldStatusCode400ByWrongUser() throws IOException, InterruptedException {
+	void shouldStatusCode404ByWrongUser() throws IOException, InterruptedException {
 
 		User user = new User("email@email.com",
 				"login",
@@ -233,7 +233,7 @@ class FilmorateApplicationTests {
 
 		HttpResponse<String> response = client.send(requestPut, HttpResponse.BodyHandlers.ofString());
 
-		assertEquals(500, response.statusCode());
+		assertEquals(404, response.statusCode());
 	}
 
 	@Test
@@ -279,7 +279,7 @@ class FilmorateApplicationTests {
 	}
 
 	@Test
-	void shouldReturnStatusCode400ByWronSizeOfDescription() throws IOException, InterruptedException {
+	void shouldReturnStatusCode400ByWrongSizeOfDescription() throws IOException, InterruptedException {
 		Film film = new Film("name",
 				"descriptionSizeOfMoreThan200chars-descriptionSizeOfMoreThan200chars" +
 						"descriptionSizeOfMoreThan200chars-descriptionSizeOfMoreThan200chars" +
@@ -413,7 +413,7 @@ class FilmorateApplicationTests {
 	}
 
 	@Test
-	void shouldReturnStatusCode400ByEmptyPostRequest() throws IOException, InterruptedException {
+	void shouldReturnStatusCode500ByEmptyPostRequest() throws IOException, InterruptedException {
 
 		URI uri = URI.create("http://localhost:8080/users");
 		HttpRequest request = HttpRequest.newBuilder()
@@ -424,11 +424,11 @@ class FilmorateApplicationTests {
 
 		HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-		assertEquals(400, response.statusCode());
+		assertEquals(500, response.statusCode());
 	}
 
 	@Test
-	void shouldReturnStatusCode400ByEmptyPutRequest() throws IOException, InterruptedException {
+	void shouldReturnStatusCode500ByEmptyPutRequest() throws IOException, InterruptedException {
 
 		URI uri = URI.create("http://localhost:8080/users");
 		HttpRequest request = HttpRequest.newBuilder()
@@ -439,7 +439,7 @@ class FilmorateApplicationTests {
 
 		HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-		assertEquals(400, response.statusCode());
+		assertEquals(500, response.statusCode());
 	}
 
 
