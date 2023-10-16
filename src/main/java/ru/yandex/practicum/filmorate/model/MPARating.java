@@ -26,7 +26,7 @@ public class MPARating {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MPARating mpaRating = (MPARating) o;
-        return id == mpaRating.id;
+        return id.equals(mpaRating.id);
     }
 
     @Override

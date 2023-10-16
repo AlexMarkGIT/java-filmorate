@@ -46,7 +46,6 @@ public class MPAStorageDB implements MPAStorage {
     }
 
     private MPARating mapRowToMPA(ResultSet resultSet, int rowNum) throws SQLException {
-        MPARating mpa = new MPARating(resultSet.getInt("id"));
-        return mpa;
+        return new MPARating(resultSet.getInt("id"));
     }
 }

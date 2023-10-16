@@ -9,6 +9,9 @@ import java.util.Map;
 
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
+
+    // пока что не стал удалять этот класс
+
     private final Map<Integer, Film> films = new HashMap<>();
     private int globalFilmId = 0;
 

@@ -40,10 +40,6 @@ public class Film {
         this.genres = new LinkedHashSet<>();
     }
 
-    public void addGenre(Genre genre) {
-        genres.add(genre);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
