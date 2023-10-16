@@ -28,6 +28,7 @@ public interface FilmService {
     MPARating getMPAById(Integer id);
 
     List<Genre> getAllGenres();
+
     Genre getGenreById(Integer id);
 
 }
