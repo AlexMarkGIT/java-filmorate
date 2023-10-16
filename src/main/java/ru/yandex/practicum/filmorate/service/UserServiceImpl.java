@@ -4,22 +4,22 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.UserAlreadyExistException;
 import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
+import ru.yandex.practicum.filmorate.storage.UserStorageDB;
 
 import java.util.Collection;
 
 @Service
-public class UserServiceDefault implements UserService {
+public class UserServiceImpl implements UserService {
 
-    UserStorage userStorage;
+    private final UserStorage userStorage;
 
-    public UserServiceDefault(InMemoryUserStorage userStorage) {
+    public UserServiceImpl(UserStorageDB userStorage) {
         this.userStorage = userStorage;
     }
 
     public Collection<User> findAllUsers() {
-        return userStorage.getUsers().values();
+        return userStorage.getUsers();
     }
 
     public User addUser(User user) {

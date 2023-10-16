@@ -25,24 +25,19 @@ public class Film {
     private int duration;
     @AssertTrue
     private boolean dateValidation;
-    private Set<Integer> likes;
+    @NotNull
+    private MPARating mpa;
+    private Set<Genre> genres;
 
-    public Film(String name, String description, LocalDate releaseDate, int duration) {
+    public Film(String name, String description, LocalDate releaseDate, int duration, MPARating mpa) {
         this.id = 0;
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
         this.duration = duration;
         this.dateValidation = releaseDate.isAfter(LocalDate.of(1895,12,28));
-        this.likes = new HashSet<>();
-    }
-
-    public void addLike(int userId) {
-        likes.add(userId);
-    }
-
-    public void deleteLike(Integer userId) {
-        likes.remove(userId);
+        this.mpa = mpa;
+        this.genres = new LinkedHashSet<>();
     }
 
     @Override

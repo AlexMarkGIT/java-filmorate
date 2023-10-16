@@ -5,27 +5,35 @@ import ru.yandex.practicum.filmorate.exception.FilmAlreadyExistException;
 import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.storage.FilmStorage;
-import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.model.Genre;
+import ru.yandex.practicum.filmorate.model.MPARating;
+import ru.yandex.practicum.filmorate.storage.*;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Service
-public class FilmServiceDefault implements FilmService {
+public class FilmServiceImpl implements FilmService {
     private final FilmStorage filmStorage;
     private final UserService userService;
+    private final MPAStorage mpaStorage;
+    private final GenreStorage genreStorage;
 
-    public FilmServiceDefault(InMemoryFilmStorage filmStorage, UserServiceDefault userService) {
+    public FilmServiceImpl(FilmStorageDB filmStorage,
+                           UserServiceImpl userService,
+                           MPAStorageDB mpaStorage,
+                           GenreStorageDB genreStorage) {
         this.filmStorage = filmStorage;
         this.userService = userService;
+        this.mpaStorage = mpaStorage;
+        this.genreStorage = genreStorage;
     }
 
     public Collection<Film> findAll() {
-        return filmStorage.getFilms().values();
+        return filmStorage.getFilms();
     }
 
-    public Film getFilmById(Integer id) {
+    public Film getById(Integer id) {
         if (!filmStorage.containsById(id)) {
             throw new FilmNotFoundException(String.format("Фильм с id \"%d\" не найден", id));
         }
@@ -67,14 +75,33 @@ public class FilmServiceDefault implements FilmService {
     }
 
     public Collection<Film> getPopularFilms(int count) {
-        return filmStorage.getFilms().values().stream()
-                .sorted(this::compare)
-                .limit(count)
-                .collect(Collectors.toList());
+        return filmStorage.getPopularFilms(count);
     }
 
-    private int compare(Film f0, Film f1) {
-        int result = f0.getLikes().size() - (f1.getLikes().size());
-        return result * (-1);
+    @Override
+    public List<MPARating> getAllMPA() {
+        return mpaStorage.getAllMPARatings();
     }
+
+    @Override
+    public MPARating getMPAById(Integer id) {
+        return mpaStorage.getMPAById(id);
+    }
+
+    @Override
+    public List<Genre> getAllGenres() {
+        return genreStorage.getAllGenres();
+    }
+
+    @Override
+    public Genre getGenreById(Integer id) {
+        return genreStorage.getGenreById(id);
+    }
+
+
+
+
+
+
+
 }

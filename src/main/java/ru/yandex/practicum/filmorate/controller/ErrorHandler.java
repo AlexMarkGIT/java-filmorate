@@ -54,8 +54,17 @@ public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleThrowable(final Throwable e) {
+        System.out.println(e.getClass());
         return new ErrorResponse(
                 "Произошла непредвиденная ошибка."
+        );
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleFilmNotFoundException(final NotFoundException e) {
+        return new ErrorResponse(
+                e.getMessage()
         );
     }
 }

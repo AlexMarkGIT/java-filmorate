@@ -1,8 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
@@ -28,7 +26,7 @@ public class User {
     private LocalDate birthday;
     @AssertTrue
     private boolean loginValidation;
-    private List<Integer> friends;
+    private List<Integer> friends = new ArrayList<>();
 
 
     public User(String email, String login, String name, LocalDate birthday) {
@@ -39,7 +37,6 @@ public class User {
         else this.name = name;
         this.birthday = birthday;
         loginValidation = !login.contains(" ");
-        this.friends = new ArrayList<>();
     }
 
     public void addFriend(Integer friendId) {
