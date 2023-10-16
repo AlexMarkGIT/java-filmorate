@@ -94,7 +94,7 @@ public class FilmStorageDB implements FilmStorage {
 
         film.setId(keyHolder.getKey().intValue());
 
-        if(film.getGenres().size() != 0) {
+        if (film.getGenres().size() != 0) {
             for (Genre genre : film.getGenres()) {
                 genreStorage.addGenreToFilm(film.getId(), genre.getId());
             }
