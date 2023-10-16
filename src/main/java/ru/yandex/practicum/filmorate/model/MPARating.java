@@ -18,7 +18,7 @@ public class MPARating {
 
     private String getMPANameById(Integer id) {
         String[] ratingNames = {"G", "PG", "PG-13", "R", "NC-17"};
-        return ratingNames[id-1];
+        return ratingNames[id - 1];
     }
 
     @Override
