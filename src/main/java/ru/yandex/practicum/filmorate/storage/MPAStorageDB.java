@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 @Primary
 public class MPAStorageDB implements MPAStorage {
-    
+
     JdbcTemplate jdbcTemplate;
 
     @Autowired
