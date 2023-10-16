@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.service;
 
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.filmorate.exception.FilmAlreadyExistException;
 import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -12,16 +13,16 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
-public class FilmServiceDefault implements FilmService {
+public class FilmServiceImpl implements FilmService {
     private final FilmStorage filmStorage;
     private final UserService userService;
     private final MPAStorage mpaStorage;
     private final GenreStorage genreStorage;
 
-    public FilmServiceDefault(FilmStorageDB filmStorage,
-                              UserServiceDefault userService,
-                              MPAStorageDB mpaStorage,
-                              GenreStorageDB genreStorage) {
+    public FilmServiceImpl(FilmStorageDB filmStorage,
+                           UserServiceImpl userService,
+                           MPAStorageDB mpaStorage,
+                           GenreStorageDB genreStorage) {
         this.filmStorage = filmStorage;
         this.userService = userService;
         this.mpaStorage = mpaStorage;
@@ -32,7 +33,7 @@ public class FilmServiceDefault implements FilmService {
         return filmStorage.getFilms();
     }
 
-    public Film getFilmById(Integer id) {
+    public Film getById(Integer id) {
         if (!filmStorage.containsById(id)) {
             throw new FilmNotFoundException(String.format("Фильм с id \"%d\" не найден", id));
         }
@@ -40,9 +41,9 @@ public class FilmServiceDefault implements FilmService {
     }
 
     public Film addFilm(Film film) {
-        /*if (filmStorage.containsFilm(film)) {
+        if (filmStorage.containsFilm(film)) {
             throw new FilmAlreadyExistException(String.format("Фильм \"%s\" уже добавлен", film.getName()));
-        }*/
+        }
         return filmStorage.addFilm(film);
     }
 

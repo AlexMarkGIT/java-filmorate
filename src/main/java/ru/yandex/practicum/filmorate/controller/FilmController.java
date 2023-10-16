@@ -6,7 +6,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.model.MPARating;
 import ru.yandex.practicum.filmorate.service.FilmService;
-import ru.yandex.practicum.filmorate.service.FilmServiceDefault;
+import ru.yandex.practicum.filmorate.service.FilmServiceImpl;
 
 import javax.validation.Valid;
 import java.util.Collection;
@@ -18,7 +18,7 @@ public class FilmController {
 
     private final FilmService filmService;
 
-    public FilmController(FilmServiceDefault filmService) {
+    public FilmController(FilmServiceImpl filmService) {
         this.filmService = filmService;
     }
 
@@ -30,7 +30,7 @@ public class FilmController {
 
     @GetMapping(value = "/films/{id}")
     public Film findById(@PathVariable("id") Integer filmId) {
-        return filmService.getFilmById(filmId);
+        return filmService.getById(filmId);
     }
 
     @PostMapping(value = "/films")

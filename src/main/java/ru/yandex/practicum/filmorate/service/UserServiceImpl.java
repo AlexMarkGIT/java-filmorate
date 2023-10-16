@@ -10,11 +10,11 @@ import ru.yandex.practicum.filmorate.storage.UserStorageDB;
 import java.util.Collection;
 
 @Service
-public class UserServiceDefault implements UserService {
+public class UserServiceImpl implements UserService {
 
-    UserStorage userStorage;
+    private final UserStorage userStorage;
 
-    public UserServiceDefault(UserStorageDB userStorage) {
+    public UserServiceImpl(UserStorageDB userStorage) {
         this.userStorage = userStorage;
     }
 

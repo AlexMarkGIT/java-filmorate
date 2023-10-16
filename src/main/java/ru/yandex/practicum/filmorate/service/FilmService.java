@@ -11,7 +11,7 @@ public interface FilmService {
 
     Collection<Film> findAll();
 
-    Film getFilmById(Integer id);
+    Film getById(Integer id);
 
     Film addFilm(Film film);
 

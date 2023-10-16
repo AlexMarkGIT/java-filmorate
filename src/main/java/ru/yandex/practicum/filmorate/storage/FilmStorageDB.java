@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.storage;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -23,10 +22,9 @@ import java.util.Set;
 @Primary
 public class FilmStorageDB implements FilmStorage {
 
-    JdbcTemplate jdbcTemplate;
-    GenreStorage genreStorage;
+    private final JdbcTemplate jdbcTemplate;
+    private final GenreStorage genreStorage;
 
-    @Autowired
     public FilmStorageDB(JdbcTemplate jdbcTemplate, GenreStorageDB genreStorage) {
         this.jdbcTemplate = jdbcTemplate;
         this.genreStorage = genreStorage;

@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
-import ru.yandex.practicum.filmorate.service.UserServiceDefault;
+import ru.yandex.practicum.filmorate.service.UserServiceImpl;
 
 import javax.validation.Valid;
 import java.util.Collection;
@@ -15,7 +15,7 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserServiceDefault userService) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
