@@ -6,18 +6,18 @@ import ru.yandex.practicum.filmorate.model.User;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Component
+
 public class InMemoryUserStorage implements UserStorage {
 
     Map<Integer, User> users = new HashMap<>();
 
     private int globalUserId = 0;
 
-    public Map<Integer, User> getUsers() {
-        return users;
+    public List<User> getUsers() {
+        return null;
     }
 
-    public User getUserById(int id) {
+    public User getUserById(Integer id) {
         return users.get(id);
     }
 

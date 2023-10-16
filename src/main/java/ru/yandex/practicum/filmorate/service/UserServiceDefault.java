@@ -6,6 +6,7 @@ import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
+import ru.yandex.practicum.filmorate.storage.UserStorageDB;
 
 import java.util.Collection;
 
@@ -14,12 +15,12 @@ public class UserServiceDefault implements UserService {
 
     UserStorage userStorage;
 
-    public UserServiceDefault(InMemoryUserStorage userStorage) {
+    public UserServiceDefault(UserStorageDB userStorage) {
         this.userStorage = userStorage;
     }
 
     public Collection<User> findAllUsers() {
-        return userStorage.getUsers().values();
+        return userStorage.getUsers();
     }
 
     public User addUser(User user) {

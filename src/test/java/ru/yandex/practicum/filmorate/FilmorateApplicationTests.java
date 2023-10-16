@@ -3,13 +3,17 @@ package ru.yandex.practicum.filmorate;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ConfigurableApplicationContext;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.MPARating;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.io.IOException;
@@ -23,6 +27,8 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@AutoConfigureTestDatabase
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 class FilmorateApplicationTests {
 
 	HttpClient client;
@@ -238,10 +244,11 @@ class FilmorateApplicationTests {
 
 	@Test
 	void shouldReturnFilmJsonFromResponse() throws IOException, InterruptedException {
+        MPARating mpa = new MPARating(1);
 		Film film = new Film("name",
 				"description",
 				LocalDate.of(1990, 1,1),
-				90);
+				90, mpa);
 
 		URI uri = URI.create("http://localhost:8080/films");
 		HttpRequest request = HttpRequest.newBuilder()
@@ -261,10 +268,11 @@ class FilmorateApplicationTests {
 
 	@Test
 	void shouldReturnStatusCode400ByWrongName() throws IOException, InterruptedException {
-		Film film = new Film("   ",
-				"description",
-				LocalDate.of(1990, 1,1),
-				90);
+        MPARating mpa = new MPARating(1);
+        Film film = new Film(" ",
+                "description",
+                LocalDate.of(1990, 1,1),
+                90, mpa);
 
 		URI uri = URI.create("http://localhost:8080/films");
 		HttpRequest request = HttpRequest.newBuilder()
@@ -280,13 +288,16 @@ class FilmorateApplicationTests {
 
 	@Test
 	void shouldReturnStatusCode400ByWrongSizeOfDescription() throws IOException, InterruptedException {
+
+        MPARating mpa = new MPARating(1);
+
 		Film film = new Film("name",
 				"descriptionSizeOfMoreThan200chars-descriptionSizeOfMoreThan200chars" +
 						"descriptionSizeOfMoreThan200chars-descriptionSizeOfMoreThan200chars" +
 						"descriptionSizeOfMoreThan200chars-descriptionSizeOfMoreThan200chars" +
 						"descriptionSizeOfMoreThan200chars-descriptionSizeOfMoreThan200chars",
 				LocalDate.of(1990, 1,1),
-				90);
+				90, mpa);
 
 		URI uri = URI.create("http://localhost:8080/films");
 		HttpRequest request = HttpRequest.newBuilder()
@@ -302,10 +313,12 @@ class FilmorateApplicationTests {
 
 	@Test
 	void shouldReturnStatusCode400ByWrongReleaseDate() throws IOException, InterruptedException {
+        MPARating mpa = new MPARating(1);
+
 		Film film = new Film("name",
 				"description",
 				LocalDate.of(1890, 1,1),
-				90);
+				90, mpa);
 
 		URI uri = URI.create("http://localhost:8080/films");
 		HttpRequest request = HttpRequest.newBuilder()
@@ -321,10 +334,12 @@ class FilmorateApplicationTests {
 
 	@Test
 	void shouldReturnStatusCode400ByWrongDuration() throws IOException, InterruptedException {
+        MPARating mpa = new MPARating(1);
+
 		Film film = new Film("name",
 				"description",
 				LocalDate.of(1890, 1,1),
-				-90);
+				-90, mpa);
 
 		URI uri = URI.create("http://localhost:8080/films");
 		HttpRequest request = HttpRequest.newBuilder()
@@ -341,15 +356,17 @@ class FilmorateApplicationTests {
 	@Test
 	void shouldReturnUpdateFilmJsonFromResponse() throws IOException, InterruptedException {
 
+        MPARating mpa = new MPARating(1);
+
 		Film film = new Film("name",
 				"description",
 				LocalDate.of(1990, 1,1),
-				90);
+				90, mpa);
 
 		Film filmToUpdate = new Film("name",
 				"description",
 				LocalDate.of(1990, 1,1),
-				90);
+				90, mpa);
 		filmToUpdate.setId(1);
 
 		URI uri = URI.create("http://localhost:8080/films");
@@ -380,15 +397,17 @@ class FilmorateApplicationTests {
 	@Test
 	void shouldStatusCode400ByWrongFilm() throws IOException, InterruptedException {
 
+        MPARating mpa = new MPARating(1);
+
 		Film film = new Film("name",
 				"description",
 				LocalDate.of(1890, 1,1),
-				90);
+				90, mpa);
 
 		Film filmToUpdate = new Film("name",
 				"description",
 				LocalDate.of(1890, 1,1),
-				90);
+				90, mpa);
 		filmToUpdate.setId(9999);
 
 		URI uri = URI.create("http://localhost:8080/films");

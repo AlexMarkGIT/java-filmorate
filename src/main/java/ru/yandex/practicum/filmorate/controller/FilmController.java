@@ -3,11 +3,14 @@ package ru.yandex.practicum.filmorate.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.Genre;
+import ru.yandex.practicum.filmorate.model.MPARating;
 import ru.yandex.practicum.filmorate.service.FilmService;
 import ru.yandex.practicum.filmorate.service.FilmServiceDefault;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -55,5 +58,25 @@ public class FilmController {
     @DeleteMapping(value = "/films/{filmId}/like/{userId}")
     public void deleteLike(@PathVariable("filmId") Integer filmId, @PathVariable("userId") Integer userId) {
         filmService.deleteLike(filmId, userId);
+    }
+
+    @GetMapping(value = "/mpa")
+    public List<MPARating> findAllMPA() {
+        return filmService.getAllMPA();
+    }
+
+    @GetMapping(value = "/mpa/{id}")
+    public MPARating findMPAById(@PathVariable("id") Integer id) {
+        return filmService.getMPAById(id);
+    }
+
+    @GetMapping(value = "/genres")
+    public List<Genre> findAllGenres() {
+        return filmService.getAllGenres();
+    }
+
+    @GetMapping(value = "/genres/{id}")
+    public Genre findGenreById(@PathVariable("id") Integer id) {
+        return filmService.getGenreById(id);
     }
 }

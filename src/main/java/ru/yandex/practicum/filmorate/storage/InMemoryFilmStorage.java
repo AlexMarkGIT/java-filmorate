@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -11,8 +12,8 @@ public class InMemoryFilmStorage implements FilmStorage {
     private final Map<Integer, Film> films = new HashMap<>();
     private int globalFilmId = 0;
 
-    public Map<Integer, Film> getFilms() {
-        return films;
+    public List<Film> getFilms() {
+        return null;
     }
 
     public Film getFilmById(int id) {
@@ -40,15 +41,18 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     public void addLike(int filmId, int userId) {
         Film film = films.get(filmId);
-        film.addLike(userId);
+        //film.addLike(userId);
         films.put(film.getId(), film);
     }
 
     public void deleteLike(int filmId, int userId) {
         Film film = films.get(filmId);
-        film.deleteLike(userId);
+        //ilm.deleteLike(userId);
         films.put(film.getId(), film);
     }
 
-
+    @Override
+    public List<Film> getPopularFilms(Integer count) {
+        return null;
+    }
 }
